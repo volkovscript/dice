@@ -3,6 +3,7 @@
 // hooks
 import { useEffect, useState } from 'react';
 // components
+import Notification from '@/components/notification';
 import Radio from '@mui/material/Radio';
 import Table from '@mui/material/Table';
 import Slider from '@mui/material/Slider';
@@ -13,16 +14,10 @@ import TableBody from '@mui/material/TableBody';
 import RadioGroup from '@mui/material/RadioGroup';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
+// types
+import type { Result } from '@/types/result.types';
 // styles
-import {
-  Dice,
-  Game,
-  Alert,
-  Button,
-  Collapse,
-  Container,
-  FormControl,
-} from './page.styled';
+import { Dice, Game, Button, Container, FormControl } from './page.styled';
 
 type Condition = 'over' | 'under';
 
@@ -44,7 +39,7 @@ export default function DiceGame() {
   const [condition, setCondition] = useState<Condition>('over');
   const [currentRoll, setCurrentRoll] = useState<number | null>(null);
   const [history, setHistory] = useState<GameResult[]>([]);
-  const [lastResult, setLastResult] = useState<'win' | 'lose' | null>(null);
+  const [lastResult, setLastResult] = useState<Result | null>(null);
   const [message, setMessage] = useState<string>('');
 
   const handleChangeSlider = (_: Event, newValue: number | number[]) => {
@@ -90,17 +85,7 @@ export default function DiceGame() {
 
   return (
     <Container maxWidth='sm'>
-      <Collapse in={!!lastResult}>
-        {lastResult && (
-          <Alert
-            variant='filled'
-            severity={lastResult === 'win' ? 'success' : 'error'}>
-            {message.split('\n').map((line, idx) => (
-              <div key={idx}>{line}</div>
-            ))}
-          </Alert>
-        )}
-      </Collapse>
+      <Notification message={message} notificationResult={lastResult} />
       <Game>
         <Dice>
           <Typography variant='h1'>
