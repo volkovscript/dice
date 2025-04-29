@@ -1,27 +1,20 @@
 'use client';
 
-// hooks
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 // components
 import Notification from '@/components/notification';
-import Radio from '@mui/material/Radio';
 import Table from '@mui/material/Table';
-import Slider from '@mui/material/Slider';
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
 import TableCell from '@mui/material/TableCell';
 import TableBody from '@mui/material/TableBody';
-import RadioGroup from '@mui/material/RadioGroup';
 import Typography from '@mui/material/Typography';
-import FormControlLabel from '@mui/material/FormControlLabel';
-// constants
-import { sliderMarksSettings } from '@/constants/slider-marks-settings.constants';
 // types
 import type { Result } from '@/types/result.types';
+import type { Condition } from '@/types/condition.types';
 // styles
-import { Dice, Game, Button, Container, FormControl } from './page.styled';
-
-type Condition = 'over' | 'under';
+import { Dice, Game, Container } from './page.styled';
+import SettingsForm from '@/components/settings-form';
 
 interface GameResult {
   time: string;
@@ -48,11 +41,11 @@ export default function DiceGame() {
     setValue(newValue as number);
   };
 
-  const handleChangeRadio = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRadio = (event: ChangeEvent<HTMLInputElement>) => {
     setCondition(event.target.value as Condition);
   };
 
-  const playGame = () => {
+  const handlePlayGame = () => {
     if (!isClient) return;
 
     const roll = Math.floor(Math.random() * 100) + 1;
@@ -94,45 +87,13 @@ export default function DiceGame() {
             {currentRoll !== null ? currentRoll : '-'}
           </Typography>
         </Dice>
-        <FormControl>
-          <RadioGroup
-            row
-            value={condition}
-            onChange={handleChangeRadio}
-            aria-labelledby='condition-choice'
-            name='condition-choice'>
-            <FormControlLabel
-              labelPlacement='start'
-              value='under'
-              control={<Radio color='secondary' />}
-              label='Under'
-            />
-            <FormControlLabel
-              labelPlacement='start'
-              value='over'
-              control={<Radio color='secondary' />}
-              label='Over'
-            />
-          </RadioGroup>
-        </FormControl>
-        <Slider
-          size='small'
-          color='secondary'
-          orientation='horizontal'
+        <SettingsForm
           value={value}
-          onChange={handleChangeSlider}
-          valueLabelDisplay='auto'
-          marks={sliderMarksSettings}
-          min={1}
-          max={100}
+          condition={condition}
+          onPlayGame={handlePlayGame}
+          onChangeRadio={handleChangeRadio}
+          onChangeSlider={handleChangeSlider}
         />
-        <Button
-          variant='contained'
-          color='secondary'
-          fullWidth
-          onClick={playGame}>
-          Play
-        </Button>
       </Game>
       <Table size='small'>
         <TableHead>
