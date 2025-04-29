@@ -14,6 +14,8 @@ import TableBody from '@mui/material/TableBody';
 import RadioGroup from '@mui/material/RadioGroup';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
+// constants
+import { sliderMarksSettings } from '@/constants/slider-marks-settings.constants';
 // types
 import type { Result } from '@/types/result.types';
 // styles
@@ -120,14 +122,7 @@ export default function DiceGame() {
           value={value}
           onChange={handleChangeSlider}
           valueLabelDisplay='auto'
-          marks={[
-            { value: 1, label: '1' },
-            { value: 20 },
-            { value: 40 },
-            { value: 60 },
-            { value: 80 },
-            { value: 100, label: '100' },
-          ]}
+          marks={sliderMarksSettings}
           min={1}
           max={100}
         />
