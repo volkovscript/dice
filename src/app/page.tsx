@@ -2,16 +2,16 @@
 
 import { useEffect, useState, type ChangeEvent } from 'react';
 // components
+import Dice from '@/components/dice';
 import ResultTable from '@/components/result-table';
 import Notification from '@/components/notification';
 import SettingsForm from '@/components/settings-form';
-import Typography from '@mui/material/Typography';
 // types
 import type { Result } from '@/types/result.types';
 import type { Condition } from '@/types/condition.types';
 import type { GameHistory } from '@/types/game-history.types';
 // styles
-import { Dice, Game, Container } from './page.styled';
+import { Game, Container } from './page.styled';
 
 export default function DiceGame() {
   const [isClient, setIsClient] = useState(false);
@@ -72,11 +72,7 @@ export default function DiceGame() {
     <Container maxWidth='sm'>
       <Notification message={message} notificationResult={lastResult} />
       <Game>
-        <Dice>
-          <Typography variant='h1'>
-            {currentRoll !== null ? currentRoll : '-'}
-          </Typography>
-        </Dice>
+        <Dice roll={currentRoll} />
         <SettingsForm
           value={value}
           condition={condition}
