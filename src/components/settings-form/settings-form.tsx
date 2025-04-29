@@ -1,15 +1,18 @@
 // components
 import Radio from '@mui/material/Radio';
 import Slider from '@mui/material/Slider';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
 // constants
 import { sliderMarksSettings } from '@/constants/slider-marks-settings.constants';
 // types
 import type { FC } from 'react';
 import type { SettingsFormProps } from './settings-form.interface';
 // styles
-import { Button, FormControl } from './settings-form.styled';
+import {
+  Button,
+  RadioGroup,
+  FormControl,
+  FormControlLabel,
+} from './settings-form.styled';
 
 const SettingsForm: FC<SettingsFormProps> = ({
   value,

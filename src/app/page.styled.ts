@@ -1,10 +1,6 @@
 // components
 import MuiStack from '@mui/material/Stack';
-import MuiAlert from '@mui/material/Alert';
-import MuiButton from '@mui/material/Button';
-import MuiCollapse from '@mui/material/Collapse';
 import MuiContainer from '@mui/material/Container';
-import MuiFormControl from '@mui/material/FormControl';
 // utils
 import { styled } from '@mui/material/styles';
 
@@ -15,10 +11,6 @@ export const Dice = styled(MuiStack)(({ theme }) => ({
   borderRadius: theme.spacing(1),
   justifyContent: 'center',
   backgroundColor: '#F5F5F5',
-}));
-
-export const Button = styled(MuiButton)(({ theme }) => ({
-  height: theme.spacing(5.25),
 }));
 
 export const Game = styled(MuiStack)(({ theme }) => ({
@@ -34,16 +26,4 @@ export const Container = styled(MuiContainer)(({ theme }) => ({
   padding: theme.spacing(2),
   alignItems: 'center',
   flexDirection: 'column',
-}));
-
-export const Collapse = styled(MuiCollapse)({
-  width: '100%',
-});
-
-export const Alert = styled(MuiAlert)(({ theme }) => ({
-  marginBottom: theme.spacing(2.625),
-}));
-
-export const FormControl = styled(MuiFormControl)(({ theme }) => ({
-  marginBottom: theme.spacing(2),
 }));
