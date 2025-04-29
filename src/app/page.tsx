@@ -2,26 +2,16 @@
 
 import { useEffect, useState, type ChangeEvent } from 'react';
 // components
+import ResultTable from '@/components/result-table';
 import Notification from '@/components/notification';
-import Table from '@mui/material/Table';
-import TableRow from '@mui/material/TableRow';
-import TableHead from '@mui/material/TableHead';
-import TableCell from '@mui/material/TableCell';
-import TableBody from '@mui/material/TableBody';
+import SettingsForm from '@/components/settings-form';
 import Typography from '@mui/material/Typography';
 // types
 import type { Result } from '@/types/result.types';
 import type { Condition } from '@/types/condition.types';
+import type { GameHistory } from '@/types/game-history.types';
 // styles
 import { Dice, Game, Container } from './page.styled';
-import SettingsForm from '@/components/settings-form';
-
-interface GameResult {
-  time: string;
-  guess: string;
-  roll: number;
-  success: boolean;
-}
 
 export default function DiceGame() {
   const [isClient, setIsClient] = useState(false);
@@ -33,7 +23,7 @@ export default function DiceGame() {
   const [value, setValue] = useState<number>(50);
   const [condition, setCondition] = useState<Condition>('over');
   const [currentRoll, setCurrentRoll] = useState<number | null>(null);
-  const [history, setHistory] = useState<GameResult[]>([]);
+  const [history, setHistory] = useState<GameHistory[]>([]);
   const [lastResult, setLastResult] = useState<Result | null>(null);
   const [message, setMessage] = useState<string>('');
 
@@ -58,7 +48,7 @@ export default function DiceGame() {
       (condition === 'over' && roll > value) ||
       (condition === 'under' && roll < value);
 
-    const newResult: GameResult = {
+    const newResult: GameHistory = {
       time,
       guess,
       roll,
@@ -95,29 +85,7 @@ export default function DiceGame() {
           onChangeSlider={handleChangeSlider}
         />
       </Game>
-      <Table size='small'>
-        <TableHead>
-          <TableRow>
-            <TableCell>Time</TableCell>
-            <TableCell>Guess</TableCell>
-            <TableCell>Result</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {history.map((item, index) => (
-            <TableRow key={index}>
-              <TableCell>{item.time}</TableCell>
-              <TableCell>{item.guess}</TableCell>
-              <TableCell
-                sx={{
-                  color: item.success ? 'success.main' : 'error.main',
-                }}>
-                {item.roll}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+      <ResultTable history={history} />
     </Container>
   );
 }
