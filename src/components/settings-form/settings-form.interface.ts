@@ -7,5 +7,5 @@ export interface SettingsFormProps {
   condition: Condition;
   onPlayGame: () => void;
   onChangeRadio: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeSlider: (_: Event, newValue: number | number[]) => void;
+  onChangeSlider: (_: Event, newValue: number) => void;
 }
